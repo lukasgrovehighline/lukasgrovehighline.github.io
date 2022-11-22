@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!--
+   QR-Logo: http://qrlogo.kaarposoft.dk
+
+   Copyright (C) 2011-2018 Henrik Kaare Poulsen
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+	<script type="text/javascript" src="modernizr.js"></script>
+	<script type="text/javascript" src="common.js"></script>
+	<script type="text/javascript" src="reedsolomon.js"></script>
+	<script type="text/javascript" src="qrcodedecode.js"></script>
+	<script type="text/javascript" src="qrlogo.js"></script>
+	<script type="text/javascript" src="color.js"></script>
+	<script type="text/javascript" src="jscolor.js"></script>
+
+	<link rel="StyleSheet" type="text/css" href="default.css">
+	<link rel="StyleSheet" type="text/css" href="qrlogo.css">
+
+	<link rel="shortcut icon" href="favicon.ico" />
+
+	<title>QR-Logo</title>
+
+</head>
+<script type="text/javascript">
+    window.onerror = function(message, url, lineNumber) {  
+        // code to execute on an error  
+        return true; // prevents browser error messages  
+    };
+</script> 
+<body onload="qrlogo_onload();">
+
+    <div class="nav clearfix">
+        <ul>
+			<li><a href="index.html">Encode</a></li>
+			<li><a href="qrblend.html">Blend</a></li>
+			<li class="selected">Optimal</li>
+			<li><a href="qrdecode.html">Decode</a></li>
+      </ul>
+    </div>
+<div id="nojs" class="jserror">
+    <b>Your browser does not seem to have JavaScript enabled</b>
+    <br>(or javascript code did not load; check browser logs)
+    </div>
+
+    <div id="noHTML5canvas" class="jserror">
+        <b>Your browser does not seem to support one or more of the following:</b>
+        <ul>
+            <li>the HTML5 canvas tag</li>
+            <li>FileReader API</li>
+      </ul>
+    </div>
+
+    <div class="section">
+        <h1>QR Optimal Logo</h1>
+        Optimally place your own logo into a <a href="http://en.wikipedia.org/wiki/QRcode">QR Code</a> for maximum scan success rate.
+        </div>
+<form>
+
+        <div class="section">
+
+            <h1>Optimally place logo</h1>
+
+            <table class="table_borders"><tr>
+                <td>Upload logo:<br>
+                    <input type="file" id="qrlogo_files" name="files[]" onchange="on_logo_file_upload(event);"/></td>
+                <td rowspan="2"><canvas width="10" height="10" id="qrlogo_canvas"></canvas></td>
+            </tr><tr>
+                <td>Text:<br>
+                    <textarea id="qrlogo_text" rows="10" cols="40">http://www.highlineschools.org/</textarea><br>
+                    <select id="qrlogo_crlf">
+                        <option value="raw">No line-separator translation</option>
+                        <option value="lf">Use LF (line feed) as line-separator</option>
+                        <option value="crlf">Use CRLF (carriage return plus line feed) as line-separator</option>
+                        <option value="cr">Use CR (carriage return) as line-separator</option>
+                    </select>
+                </td>
+            </tr><tr>
+                <td>Background color:<br>
+                    <input id="qrlogo_bg_color" class="jscolor {pickerMode:'HSV'}" value="FFFFFF">
+<!--				<input id="qrlogo_transparent" type="checkbox">Transparent Background</td> -->
+                <td><input id="qrlogo_debug_checkbox" type="checkbox">Produce debug output</td>
+				
+            </tr><tr>
+                <td>Module color:<br>
+                    <input id="qrlogo_module_color" class="jscolor {pickerMode:'HVS'}" value="000000"></td>
+                <td></td>
+            </tr></table>
+
+        </div>
+        <div class="buttons">
+                    <button type="button" id="qrlogo_start" onclick="qrlogo_onstart();" disabled="disabled">Generate QR Logo</button>
+                    <button type="button" id="qrlogo_stop" onclick="qrlogo_onstop();" disabled="disabled">Stop</button>
+        </div>
+
+    </form>
+
+
+    <div id="div_current" class="section" style="display:none">
+        <h2>Current logo</h2>
+        Generating QR Logo <b>#<span id="span_logo_i">0</span></b> of <b>#<span id="span_logo_n">0</span></b>
+        <div id="div_current_qrlogo">
+        </div>
+    </div>
+
+    <div id="div_best" style="display:none">
+        <h1 id="h_best_qrlogos">Best logos</h1>
+        <div id="div_best_qrlogos">
+        <table><tr>
+            <td><div class="section"><h2>Excellent</h2><div id="div_best_qrlogos_4"></div></div></td>
+            <td><div class="section"><h2>Good</h2><div id="div_best_qrlogos_3"></div></div></td>
+            <td><div class="section"><h2>Fair</h2><div id="div_best_qrlogos_2"></div></div></td>
+            <td><div class="section"><h2>Poor</h2><div id="div_best_qrlogos_1"></div></div></td>
+        </tr></table>
+        </div>
+    </div>
+
+    <div id="div_debug" class="section" style="display:none">
+        <h2>Debug Output</h2>
+        <div id="div_debug_output">
+        </div>
+    </div>
+
+    <div id="div_debug_detailed" class="section" style="display:none">
+        <h2>Detailed Debug Output</h2>
+        <div id="div_debug_detailed_output">
+        </div>
+    </div>
+
+</body>
+</html>
